@@ -3,7 +3,7 @@ function sum() {
     for (i=0; i<arguments.length; i++){
         ourSum += arguments[i]
     }
-    debugger
+    // debugger
     return ourSum
 }
 
@@ -59,11 +59,24 @@ function curriedSum(numArgs) {
     }
 }
 
+// Function.prototype.curry = function (numArgs) {
+//     let args = []
+//     let that = this
+//     return function _curried(num) {
+//         args.push(num)
+//         if (args.length === numArgs) {
+//             return that.apply(null, args)
+//         } else {
+//             return _curried
+//         }
+//     }
+// }
+
 Function.prototype.curry = function (numArgs) {
     let args = []
     let that = this
-    return function _curried(num) {
-        args.push(num)
+    return function _curried(...num) {
+        args = args.concat(num)
         if (args.length === numArgs) {
             return that.apply(null, args)
         } else {
@@ -72,4 +85,3 @@ Function.prototype.curry = function (numArgs) {
     }
 }
 
-console.log(sum.curry(2))
